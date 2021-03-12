@@ -61,6 +61,10 @@ nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 nnoremap <c-p> :Files<cr>
 nnoremap <c-f> :Ag<space>
 
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
+nnoremap <c-b> :NERDTreeToggle<cr>
 
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
@@ -104,7 +108,7 @@ let g:NERDCustomDelimiters = { 'c': { 'left': '/*','right': '*/' } }
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-" Enable NERDCommenterToggle to check all selected lines is commented or not 
+" Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
 let g:NERDTreeGitStatusWithFlags = 1
