@@ -8,6 +8,7 @@ Plug 'ncm2/ncm2'
 Plug 'w0rp/ale'
 Plug 'cohama/lexima.vim'
 Plug 'mhinz/vim-startify'
+Plug 'mhinz/vim-signify'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'preservim/nerdtree'
@@ -15,7 +16,7 @@ Plug 'tsony-tsonev/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter'
-Plug 'airblade/vim-gitgutter'
+Plug 'samoshkin/vim-mergetool'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -42,7 +43,7 @@ set shiftwidth=2
 set updatetime=50
 
 " always show signcolumns
-set colorcolumn=80
+set colorcolumn=100
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 set signcolumn=yes
 
@@ -66,8 +67,34 @@ nnoremap <leader>Y gg"+yG
 
 nnoremap <c-b> :NERDTreeToggle<cr>
 
+"enable pt-br dictionary
+nnoremap <c-d> :set spell spelllang=pt<cr>
+nnoremap <leader>ns :set nospell<cr>
+
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
+
+" Toogle git changes
+nnoremap <leader>gs :SignifyToggle<cr>
+nnoremap <leader>gS :SignifyToggleHighlight<cr>
+
+" Change these if you want
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '_'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change            = '~'
+
+" I find the numbers disctracting
+let g:signify_sign_show_count = 0
+let g:signify_sign_show_text = 1
+
+" Jump though hunks
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+
+"Git merge
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
 
 " unicode symbols
 let g:airline_left_sep = '»'
