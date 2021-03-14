@@ -2,13 +2,14 @@ call plug#begin()
 Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sheerun/vim-polyglot'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'ncm2/ncm2'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'w0rp/ale'
 Plug 'cohama/lexima.vim'
 Plug 'mhinz/vim-startify'
 Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'preservim/nerdtree'
@@ -18,8 +19,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter'
 Plug 'samoshkin/vim-mergetool'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 set hidden
@@ -67,6 +68,18 @@ nnoremap <leader>Y gg"+yG
 
 nnoremap <c-b> :NERDTreeToggle<cr>
 
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
 "enable pt-br dictionary
 nnoremap <c-d> :set spell spelllang=pt<cr>
 nnoremap <leader>ns :set nospell<cr>
@@ -74,9 +87,11 @@ nnoremap <leader>ns :set nospell<cr>
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
 
+
 " Toogle git changes
 nnoremap <leader>gs :SignifyToggle<cr>
 nnoremap <leader>gS :SignifyToggleHighlight<cr>
+
 
 " Change these if you want
 let g:signify_sign_add               = '+'
@@ -84,29 +99,35 @@ let g:signify_sign_delete            = '_'
 let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_change            = '~'
 
+
 " I find the numbers disctracting
 let g:signify_sign_show_count = 0
 let g:signify_sign_show_text = 1
+
 
 " Jump though hunks
 nmap <leader>gj <plug>(signify-next-hunk)
 nmap <leader>gk <plug>(signify-prev-hunk)
 
+
 "Git merge
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
 
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" unicode symbols
+let g:airline_theme ='hybridline'
+let g:airline_section_b = airline#section#create(['%{sy#repo#get_stats_decorated()}',' » ','%{fugitive#head()}'])
+let g:airline_section_x = '%{strftime("%d/%m/%Y, %H:%M")}'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_powerline_fonts=1
+let g:airline_left_sep = '|'
+let g:airline_right_sep = '|'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+set laststatus=2
 
 highlight Comment cterm=italic gui=italic
 
