@@ -98,7 +98,10 @@ let g:signify_sign_add               = '+'
 let g:signify_sign_delete            = '_'
 let g:signify_sign_delete_first_line = '‾'
 let g:signify_sign_change            = '~'
-
+"highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+highlight SignifySignAdd    ctermfg=NONE  guifg=NONE cterm=NONE gui=NONE
+highlight SignifySignDelete ctermfg=NONE  guifg=NONE cterm=NONE gui=NONE
+highlight SignifySignChange ctermfg=NONE  guifg=NONE cterm=NONE gui=NONE
 
 " I find the numbers disctracting
 let g:signify_sign_show_count = 0
